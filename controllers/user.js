@@ -56,13 +56,11 @@ exports.registerUser = async (req, res) => {
 
     await user.save();
     // console.log(user);
-    return res
-      .status(201)
-      .json({
-        uploadedResponse: "Image uploaded succesfully",
-        message: "Account created",
-        user,
-      });
+    return res.status(201).json({
+      uploadedResponse: "Image uploaded succesfully",
+      message: "Account created",
+      user,
+    });
   } catch (err) {
     console.log(err);
   }
@@ -105,9 +103,9 @@ exports.login = async (req, res) => {
 };
 
 exports.getUser = async () => {
-  const user = await userSchema.findById(req.body.id);
+  const user = await userSchema.findById({username:req.body.username});
   if (!user) return res.status(500).json({ message: "Error in getting user" });
-  return res.status(200).send(user);
+  return res.status(200).json({user});
 };
 
 exports.logout = async (req, res) => {
@@ -117,13 +115,31 @@ exports.logout = async (req, res) => {
 exports.update = async (req, res) => {
   console.log(req.body);
   const info = _.pick(req.body, [
+    "prevName",
+    "prevUsername",
+    "prevEmail",
+    "prevCountry",
+    "prevPassword",
+    "newpassword",
     "name",
     "username",
     "email",
     "country",
     "password",
-    "newpassword",
+    "password",
   ]);
-  const data = this.checkForAccess();
+  const user = await userSchema.findOne({
+    email: info.prevPassword,
+    name: info.prevName,
+    username: info.prevUsername,
+  });
+  await userSchema.findByIdAndUpdate(user._id, {
+    name: info.name,
+    email: info.email,
+    username: info.username,
+    country: info.country,
+    password: info.password,
+  });
+  const updatedUser = await userSchema.findById(user._id)
+  return res.status(200).json({message:"User updated successfuly",updatedUser})
 };
-
