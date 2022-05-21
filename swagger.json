@@ -1,0 +1,80 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Documentation of mTunes song streaming and description APIs",
+        "version": "1.0.0",
+        "title": "MTUNES APIS",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "MUGISHA Precieux",
+            "email": "precieuxmugisha@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "tags": [
+        {
+            "name": "user",
+            "description": "Operations about the user"
+        }
+    ],
+    "paths": {
+        "/user/newAccount": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "user registration",
+                "description": "Provider registration",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "example": "Mugisha Precieux"
+                            },
+                            "username": {
+                                "type": "string",
+                                "example": "mprecieux"
+                            },
+                            "email": {
+                                "type": "string",
+                                "example": "mugisha@gmail.com"
+                            },
+                            "imageStr": {
+                                "type": "string",
+                                "example": "data:image/jpeg;base64,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"
+                            },
+                            "password": {
+                                "type": "string",
+                                "example": "mugi/*/sha+123_"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Account created"
+                    },
+                    "400": {
+                        "description": "Missing parameter file"
+                    }
+                }
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "Find out more about Swagger",
+        "url": "http://swagger.io"
+    }
+}
